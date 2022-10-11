@@ -1,0 +1,1 @@
+cmd_/media/pi/rootfs/home/pi/fbtft-gpl/fbtft/fbtft.o := ld -EL  -maarch64elf   -r -o /media/pi/rootfs/home/pi/fbtft-gpl/fbtft/fbtft.o /media/pi/rootfs/home/pi/fbtft-gpl/fbtft/fbtft-core.o /media/pi/rootfs/home/pi/fbtft-gpl/fbtft/fbtft-sysfs.o /media/pi/rootfs/home/pi/fbtft-gpl/fbtft/fbtft-bus.o /media/pi/rootfs/home/pi/fbtft-gpl/fbtft/fbtft-io.o

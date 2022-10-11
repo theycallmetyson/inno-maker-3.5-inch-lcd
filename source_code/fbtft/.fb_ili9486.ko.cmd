@@ -1,0 +1,1 @@
+cmd_/media/pi/rootfs/home/pi/fbtft-gpl/fbtft/fb_ili9486.ko := ld -r -EL  -maarch64elf --build-id=sha1  -T scripts/module.lds -o /media/pi/rootfs/home/pi/fbtft-gpl/fbtft/fb_ili9486.ko /media/pi/rootfs/home/pi/fbtft-gpl/fbtft/fb_ili9486.o /media/pi/rootfs/home/pi/fbtft-gpl/fbtft/fb_ili9486.mod.o;  true

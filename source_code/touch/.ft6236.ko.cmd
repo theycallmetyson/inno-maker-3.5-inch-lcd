@@ -1,0 +1,1 @@
+cmd_/media/pi/rootfs/home/pi/fbtft-gpl/touch/ft6236.ko := ld -r -EL  -maarch64elf --build-id=sha1  -T scripts/module.lds -o /media/pi/rootfs/home/pi/fbtft-gpl/touch/ft6236.ko /media/pi/rootfs/home/pi/fbtft-gpl/touch/ft6236.o /media/pi/rootfs/home/pi/fbtft-gpl/touch/ft6236.mod.o;  true
