@@ -7,7 +7,10 @@ sleep 2
 #Setup  Linux kernel cmdline!
 #if [ ! -f "/boot/overlays/lcd35_spi.dtbo" ] ;then
 if [ ! -f "/etc/udev/rules.d/95-ft6236.rules" ] ;then
-sudo mv /lib/modules/$( uname -r)/kernel/drivers/input/touchscreen/edt-ft5x06.ko  /lib/modules/$( uname -r)/kernel/drivers/input/touchscreen/edt-ft5x06.ko.bak
+sudo mkdir driver_backup
+sudo mv /lib/modules/$( uname -r)/kernel/drivers/input/touchscreen/edt-ft5x06.ko.xz  ./driver_backup
+sudo mv /lib/modules/$( uname -r)/kernel/drivers/staging/fbtft/fb_ili9486.ko.xz  ./driver_backup
+sudo mv /lib/modules/$( uname -r)/kernel/drivers/staging/fbtft/fbtft.ko.xz ./driver_backup
 #sudo cp -rf ./boot/cmdline.txt /boot/cmdline.txt
 #setup inittab
 #sudo cp -rf ./etc/inittab /etc/
