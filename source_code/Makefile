@@ -44,7 +44,7 @@ install: all devicetree-install
 	sudo /sbin/depmod -a $(shell uname -r)
 	sudo /sbin/modprobe $(TOUCH_DRIVER) 
 	sudo /sbin/modprobe fbtft
-	sudo /sbin/modprobe fbtft_ili9486
+	sudo /sbin/modprobe fb_ili9486
 	@echo "--------------------------------------"
 	@echo
 	@echo "  ADD 'dtparam=i2c_arm=on' and 'dtoverlay=lcd35_spi' to your /boot/config.txt"
