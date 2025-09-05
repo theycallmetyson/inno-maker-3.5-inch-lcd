@@ -194,7 +194,7 @@ static void ft6236_reset(struct ft6236_data *ft6236)
 	msleep(300);
 }
 
-static void ft6236_probe(struct i2c_client *client)
+static int ft6236_probe(struct i2c_client *client)
 {
 	struct device *dev = &client->dev;
 	struct ft6236_data *ft6236;
