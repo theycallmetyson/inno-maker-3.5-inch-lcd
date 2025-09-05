@@ -290,6 +290,8 @@ static int ft6236_probe(struct i2c_client *client)
 		dev_err(dev, "failed to register input device: %d\n", error);
 		return error;
 	}
+
+	return 0;
 }
 
 #ifdef CONFIG_OF
