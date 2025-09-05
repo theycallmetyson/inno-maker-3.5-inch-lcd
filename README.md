@@ -45,6 +45,8 @@ This repository contains setup scripts, drivers, overlays, and utilities for the
 #### a. Build and Install Drivers (Optional, for custom kernel)
 
 ```
+cd /inno-maker-3.5-inch-lcd
+sudo chmod -R a+rwx *
 cd source_code
 make
 sudo make install
@@ -54,6 +56,7 @@ sudo make install
 
 ```
 cd lcd_setup
+chmod +x setup.sh
 sudo ./setup.sh
 ```
 
