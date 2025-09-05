@@ -28,9 +28,9 @@ echo "System common file already installed !"
 fi
 
 #copy xinput application on /home/pi dir!
-if [ ! -d "/home/pi/user-app" ]; then
-sudo mkdir /home/pi/user-app
-sudo cp -rf  ./user-app/* /home/pi/user-app/
+if [ ! -d "/home/$USER/user-app" ]; then
+sudo mkdir /home/$USER/user-app
+sudo cp -rf  ./user-app/* /home/$USER/user-app/
 else
 echo "user-app Directory alredy exist!"
 fi

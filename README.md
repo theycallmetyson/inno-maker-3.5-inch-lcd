@@ -78,7 +78,7 @@ sudo reboot
 After reboot, use the calibration tool:
 
 ```
-cd /home/pi/user-app
+cd /home/$USER/user-app
 sudo dpkg -i xinput-calibrator_0.7.5-1_armhf.deb
 xinput_calibrator
 ```
