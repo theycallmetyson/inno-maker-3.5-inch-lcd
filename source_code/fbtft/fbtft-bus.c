@@ -5,7 +5,6 @@
 #include <linux/spi/spi.h>
 #include "fbtft.h"
 
-
 /*****************************************************************************
  *
  *   void (*write_reg)(struct fbtft_par *par, int len, ...);
@@ -122,9 +121,7 @@ EXPORT_SYMBOL(fbtft_write_reg8_bus9);
 int fbtft_write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_t len)
 {
 	u16 *vmem16;
-	u8 *txbuf8 =par->txbuf.buf;
-	u16 data;
-	u8  r,g,b;
+	__be16 *txbuf16 = par->txbuf.buf;
 	size_t remain;
 	size_t to_copy;
 	size_t tx_array_size;
@@ -132,14 +129,10 @@ int fbtft_write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_t len)
 	int ret = 0;
 	size_t startbyte_size = 0;
 
-	fbtft_par_dbg(DEBUG_WRITE_VMEM, par, "%s(offset=%zu, len=%zu)\n",
-		      __func__, offset, len);
-
 	remain = len / 2;
 	vmem16 = (u16 *)(par->info->screen_buffer + offset);
 
-	if (par->gpio.dc)
-		gpiod_set_value(par->gpio.dc, 1);
+	gpiod_set_value(par->gpio.dc, 1);
 
 	/* non buffered write */
 	if (!par->txbuf.buf)
@@ -149,7 +142,7 @@ int fbtft_write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_t len)
 	tx_array_size = par->txbuf.len / 2;
 
 	if (par->startbyte) {
-		txbuf8 = par->txbuf.buf + 2;
+		txbuf16 = par->txbuf.buf + 1;
 		tx_array_size -= 2;
 		*(u8 *)(par->txbuf.buf) = par->startbyte | 0x2;
 		startbyte_size = 1;
@@ -159,20 +152,13 @@ int fbtft_write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_t len)
 		to_copy = min(tx_array_size, remain);
 		dev_dbg(par->info->device, "to_copy=%zu, remain=%zu\n",
 			to_copy, remain - to_copy);
+
 		for (i = 0; i < to_copy; i++)
-		     {  
-		       data=vmem16[i];
-		       r=(data&0xf800)>>(11-3);
-		       g=(data&0x07e0)>>(5-2);
-		       b=(data&0x001f)<<3;
-		       
-		       txbuf8[3*i+0]=r;
-		       txbuf8[3*i+1]=g;
-		       txbuf8[3*i+2]=b;
-		     }
+			txbuf16[i] = cpu_to_be16(vmem16[i]);
+
 		vmem16 = vmem16 + to_copy;
 		ret = par->fbtftops.write(par, par->txbuf.buf,
-						startbyte_size + to_copy * 3);
+						startbyte_size + to_copy * 2);
 		if (ret < 0)
 			return ret;
 		remain -= to_copy;
@@ -192,9 +178,6 @@ int fbtft_write_vmem16_bus9(struct fbtft_par *par, size_t offset, size_t len)
 	size_t tx_array_size;
 	int i;
 	int ret = 0;
-
-	fbtft_par_dbg(DEBUG_WRITE_VMEM, par, "%s(offset=%zu, len=%zu)\n",
-		      __func__, offset, len);
 
 	if (!par->txbuf.buf) {
 		dev_err(par->info->device, "%s: txbuf.buf is NULL\n", __func__);
@@ -242,9 +225,6 @@ EXPORT_SYMBOL(fbtft_write_vmem8_bus8);
 int fbtft_write_vmem16_bus16(struct fbtft_par *par, size_t offset, size_t len)
 {
 	u16 *vmem16;
-
-	fbtft_par_dbg(DEBUG_WRITE_VMEM, par, "%s(offset=%zu, len=%zu)\n",
-		      __func__, offset, len);
 
 	vmem16 = (u16 *)(par->info->screen_buffer + offset);
 

@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0+
 /*
- * FB driver for the innomaker 3.5 inch capacitive LCD
+ * FB driver for the ILI9486 LCD Controller
  *
  * Copyright (C) 2014 Noralf Tronnes
- * InnoMaker update on 2017
  */
 
 #include <linux/module.h>
@@ -101,5 +100,4 @@ MODULE_ALIAS("platform:ili9486");
 
 MODULE_DESCRIPTION("FB driver for the ILI9486 LCD Controller");
 MODULE_AUTHOR("Noralf Tronnes");
-MODULE_AUTHOR("InnoMaker JackYang");
 MODULE_LICENSE("GPL");
