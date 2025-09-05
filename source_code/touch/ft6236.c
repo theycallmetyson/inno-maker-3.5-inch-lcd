@@ -194,8 +194,7 @@ static void ft6236_reset(struct ft6236_data *ft6236)
 	msleep(300);
 }
 
-static int ft6236_probe(struct i2c_client *client,
-			const struct i2c_device_id *id)
+static void ft6236_probe(struct i2c_client *client)
 {
 	struct device *dev = &client->dev;
 	struct ft6236_data *ft6236;
@@ -291,8 +290,6 @@ static int ft6236_probe(struct i2c_client *client,
 		dev_err(dev, "failed to register input device: %d\n", error);
 		return error;
 	}
-
-	return 0;
 }
 
 #ifdef CONFIG_OF
