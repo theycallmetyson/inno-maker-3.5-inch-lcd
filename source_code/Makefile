@@ -47,7 +47,7 @@ install: all devicetree-install
 	sudo /sbin/modprobe fb_ili9486
 	@echo "--------------------------------------"
 	@echo
-	@echo "  ADD 'dtparam=i2c_arm=on' and 'dtoverlay=lcd35_spi' to your /boot/config.txt"
+	@echo "  ADD 'dtparam=i2c_arm=on' and 'dtoverlay=lcd35_spi' to your /boot/firmware/config.txt"
 	@echo
 	@echo "--------------------------------------"
 
