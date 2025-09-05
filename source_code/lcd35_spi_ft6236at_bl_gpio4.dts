@@ -76,7 +76,8 @@
 				        /*0x1000036 0x28 */ /*bgr or rgb*/ 
 				        /*0x100003a 0x55 */ /*spi4 not support 565 formate!*/
 					    /*0x1000021 */  /*ouyang add,color flip!*/
-				        0x100003a 0x66 /*18bit/pixel*/
+				        /* 0x100003a 0x66 */ /*18bit/pixel*/
+						0x100003a 0x55 /*16bit/pixel (RGB565)*/
 						/*0x10000b0 0x00 */
 						0x10000b0 0x80
 				        0x10000b1 0xb0 0x11
