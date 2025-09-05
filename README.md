@@ -42,6 +42,13 @@ This repository contains setup scripts, drivers, overlays, and utilities for the
 
 ### 2. Software Setup
 
+Before starting, make sure you get all the latest and greatest updates by doing:
+
+```
+sudo apt update && sudo apt upgrade
+sudo apt-get install raspberrypi-kernel-headers
+```
+
 #### a. Build and Install Drivers (Optional, for custom kernel)
 
 ```
