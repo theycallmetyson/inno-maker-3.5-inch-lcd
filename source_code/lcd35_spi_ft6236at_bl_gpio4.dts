@@ -1,5 +1,5 @@
 /*
- * Device Tree overlay for InnoMaker  3.5inch capacitive IPS LCD
+ * Device Tree overlay for InnoMaker 3.5inch capacitive IPS LCD
  * Author: JackYang
  * Copyriht: InnoMaker
  */
@@ -29,9 +29,9 @@
 		target = <&gpio>;
 		__overlay__ {
 			test35_pins: test35_pins {
-				brcm,pins = <27 4 25 24>; /*ctp_int bl lcd_rst lcd_rs */
-				brcm,function = <0 1 1 1>; /* in out  out out */
-				brcm,pull = <2 0 0 0>; /* pullup none none none */
+				brcm,pins = <27 4 25 24>; /* ctp_int bl lcd_rst lcd_rs */
+				brcm,function = <0 1 1 1>; /* in out out out */
+				brcm,pull = <2 0 0 0>;     /* pullup none none none */
 			};
 		};
 	};
@@ -39,7 +39,6 @@
 	fragment@2 {
 		target = <&spi0>;
 		__overlay__ {
-			/* needed to avoid dtc warning */
 			#address-cells = <1>;
 			#size-cells = <0>;
 
@@ -55,61 +54,64 @@
 				bgr = <0>;
 				fps = <30>;
 				buswidth = <16>;
+				regwidth = <16>;
+				bpp = <16>;
 				reset-gpios = <&gpio 25 1>;
 				dc-gpios = <&gpio 24 0>;
-				led-gpios = <&gpio 4 0>; /*backlight high enable*/
-				debug= <0>;
+				led-gpios = <&gpio 4 0>; /* backlight high enable */
+				debug = <0>;
 
 				init = <
-						0x1000011
-						0x20000ff
-						0x1000036 0x48
-						0x100003a 0x55
-						0x10000c0 0x0d 0x0d
-						0x10000c1 0x43
-						0x10000c5 0x00 0x48
-						0x10000b0 0x00
-						0x10000b1 0xb0 0x11
-						0x10000b4 0x02
-						0x10000b6 0x02 0x02
-						0x10000b7 0xc6
-						0x10000e9 0x00
-						0x10000f7 0xa9 0x51 0x2c 0x82
-				        0x1000029
-						>;
+					0x1000011          /* Sleep out */
+					0x20000ff          /* Delay */
+					0x1000036 0x48     /* Memory Access Control */
+					0x100003a 0x55     /* Pixel Format: 16-bit RGB565 */
+					0x10000c0 0x0d 0x0d
+					0x10000c1 0x43
+					0x10000c5 0x00 0x48
+					0x10000b0 0x00
+					0x10000b1 0xb0 0x11
+					0x10000b4 0x02
+					0x10000b6 0x02 0x02
+					0x10000b7 0xc6
+					0x10000e9 0x00
+					0x10000f7 0xa9 0x51 0x2c 0x82
+					0x1000029          /* Display ON */
+				>;
 			};
-
-			};  
 		};
+	};
 
-	 fragment@3{
-	        target= <&i2c1>;
-			__overlay__ {
-			       /*needed to avoid dtc warning*/
-				  #address-cells =<1>;
-				  #size-cells =<0>;
-				 ft6236: ft6236@38 {
-					     compatible ="focaltech,ft6236";
-						 reg = <0x38>;
-						 interrupt-parent= <&gpio>;
-						 interrupts=<27  2>;
-						 touchscreen-size-x =<480>;
-						 touchscreen-size-y =<320>; 
-	    	 };
+	fragment@3 {
+		target= <&i2c1>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			ft6236: ft6236@38 {
+				compatible = "focaltech,ft6236";
+				reg = <0x38>;
+				interrupt-parent = <&gpio>;
+				interrupts = <27 2>;
+				touchscreen-size-x = <480>;
+				touchscreen-size-y = <320>;
+			};
 		};
-	  
-	 };
+	};
+
 	__overrides__ {
-		speed =		<&test35>,"spi-max-frequency:0";
-		txbuflen =	<&test35>,"txbuflen:0";
-		rotate =	<&test35>,"rotate:0";
-		fps =		<&test35>,"fps:0";
-		bgr =		<&test35>,"bgr:0";
-		debug =		<&test35>,"debug:0";
-		touch-sizex  =  <&ft6236>,"touchscreen-size-x:0";
-		touch-sizey  =  <&ft6236>,"touchscreen-size-y:0";
-		touch-invx   =  <&ft6236>,"touchscreen-inverted-x?";
-		touch-invy   =  <&ft6236>,"touchscreen-inverted-y?";
-		touch-swapxy =  <&ft6236>,"touchscreen-swapped-x-y?";
+		speed       = <&test35>,"spi-max-frequency:0";
+		txbuflen    = <&test35>,"txbuflen:0";
+		rotate      = <&test35>,"rotate:0";
+		fps         = <&test35>,"fps:0";
+		bgr         = <&test35>,"bgr:0";
+		debug       = <&test35>,"debug:0";
+		buswidth    = <&test35>,"buswidth:0";
+		regwidth    = <&test35>,"regwidth:0";
+		bpp         = <&test35>,"bpp:0";
+		touch-sizex = <&ft6236>,"touchscreen-size-x:0";
+		touch-sizey = <&ft6236>,"touchscreen-size-y:0";
+		touch-invx  = <&ft6236>,"touchscreen-inverted-x?";
+		touch-invy  = <&ft6236>,"touchscreen-inverted-y?";
+		touch-swapxy= <&ft6236>,"touchscreen-swapped-x-y?";
 	};
 };
