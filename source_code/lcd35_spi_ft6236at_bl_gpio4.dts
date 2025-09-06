@@ -54,10 +54,7 @@
 				rotate = <90>;
 				bgr = <0>;
 				fps = <30>;
-				buswidth = <8>;/*8bit spi bus*/
-				/*bpp = <18>; */  /*fbtft.ko default 16bit/pixel*/
-				/* regwidth = <24>; */ /*regwidth defined to 8 in driver*/
-				/* regwidth = <16>; */
+				buswidth = <16>;
 				reset-gpios = <&gpio 25 1>;
 				dc-gpios = <&gpio 24 0>;
 				led-gpios = <&gpio 4 0>; /*backlight high enable*/
